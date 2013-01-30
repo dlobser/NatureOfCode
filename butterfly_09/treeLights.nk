@@ -1,0 +1,195 @@
+#! C:/Program Files/Nuke6.3v4/Nuke6.3.exe -nx
+version 6.3 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-9" y="-9" w="1938" h="1184" screen="0">
+        <splitter orientation="1">
+            <split size="1213"/>
+            <splitter orientation="1">
+                <split size="53"/>
+                <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"/>
+                </dock>
+                <split size="1156"/>
+                <splitter orientation="2">
+                    <split size="556"/>
+                    <dock id="" activePageId="Viewer.1">
+                        <page id="Viewer.1"/>
+                    </dock>
+                    <split size="556"/>
+                    <dock id="" activePageId="DAG.1">
+                        <page id="DAG.1"/>
+                        <page id="Curve Editor.1"/>
+                        <page id="DopeSheet.1"/>
+                    </dock>
+                </splitter>
+            </splitter>
+            <split size="703"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name C:/Users/David/Documents/Processing/butterfly_09/treeLights.nk
+ frame 4342
+ first_frame 4200
+ last_frame 4531
+ lock_range true
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+}
+Read {
+ inputs 0
+ file C:/Users/David/Documents/Processing/butterfly_09/sequence_3/line-######.png
+ format "1920 1100 0 0 1920 1100 1 "
+ first 526
+ last 4531
+ origfirst 526
+ origlast 4531
+ origset true
+ name Read1
+ xpos -248
+ ypos -50
+}
+set N5e7ca90 [stack 0]
+ColorCorrect {
+ gain 3.05
+ name ColorCorrect3
+ xpos -76
+ ypos 69
+}
+push $N5e7ca90
+ColorCorrect {
+ shadows.saturation 1.18
+ shadows.gamma 0.81
+ midtones.gamma 1.46
+ highlights.gain 4
+ lookup {shadow {curve 1 s0 x0.03799999878 0 s0}
+   midtone {1-shadow-highlight}
+   highlight {}}
+ name ColorCorrect1
+ xpos -248
+ ypos 34
+}
+ColorCorrect {
+ gamma 0.84
+ offset {0.009999999776 0.0005000000237 0.002000000095 0.009999999776}
+ highlights.gain 23
+ name ColorCorrect2
+ xpos -248
+ ypos 58
+}
+set Na0de430 [stack 0]
+Blur {
+ size 100
+ name Blur1
+ xpos -248
+ ypos 82
+}
+push $Na0de430
+Merge2 {
+ inputs 2
+ mix 0.1
+ name Merge1
+ xpos -135
+ ypos 125
+}
+Copy {
+ inputs 2
+ from0 rgba.alpha
+ to0 rgba.alpha
+ from1 rgba.red
+ to1 depth.Z
+ name Copy1
+ xpos 11
+ ypos 106
+}
+ZBlur {
+ center 0.04
+ dof 0.062
+ size 3.35
+ max_size 13.5
+ name ZBlur1
+ xpos 11
+ ypos 154
+}
+HueShift {
+ hue_rotation -46
+ name HueShift1
+ xpos 11
+ ypos 190
+}
+Grain2 {
+ name Grain2_1
+ label "Kodak 5248"
+ xpos 11
+ ypos 214
+ red_m 0.635
+ green_m 0.84
+ black {0 0 0}
+ minimum {0 0 0}
+}
+set N5b2fe80 [stack 0]
+Viewer {
+ frame 4342
+ input_process false
+ name Viewer1
+ xpos -40
+ ypos -9
+}
+push $N5b2fe80
+Write {
+ file C:/Users/David/Documents/Processing/butterfly_09/sequence_3/linetreated-######.png
+ file_type png
+ checkHashOnRead false
+ version 1
+ name Write1
+ xpos 31
+ ypos 277
+}
+Read {
+ inputs 0
+ file C:/Users/David/Documents/Processing/butterfly_09/sequence_3/linetreated-######.png
+ format "1920 1100 0 0 1920 1100 1 "
+ first 4210
+ last 4531
+ origfirst 4210
+ origlast 4531
+ origset true
+ version 1
+ name Read5
+ xpos 168
+ ypos 35
+}
+Reformat {
+ type scale
+ scale 0.6667
+ name Reformat4
+ xpos 168
+ ypos 119
+}
+ColorCorrect {
+ gamma 1.08
+ gain 1.6
+ shadows.gamma {1 1.100000024 1 1}
+ name ColorCorrect4
+ xpos 168
+ ypos 143
+ disable true
+}
+Write {
+ file C:/Users/David/Documents/Processing/butterfly_09/sequence_3/leavesAndLights.mov
+ file_type mov
+ codec avc1
+ keyframerate 0
+ checkHashOnRead false
+ version 1
+ name Write4
+ xpos 215
+ ypos 210
+}
